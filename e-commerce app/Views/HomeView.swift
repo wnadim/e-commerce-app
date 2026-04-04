@@ -40,28 +40,30 @@ struct HomeView: View {
     }
 }
 
-private var headerSection: some View {
-    VStack(alignment: .leading, spacing: 12) {
-        
-        Text("THE CURATED MONOLITH")
-            .font(.title2)
-            .fontWeight(.bold)
-        
-        Text("Structural precision meets archival rarity.")
-            .font(.subheadline)
-            .foregroundColor(.gray)
-        
-        Button {
+extension HomeView {
+    private var headerSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
             
-        } label: {
-            HStack {
-                Text("Explore Collection")
-                Image(systemName: "arrow.right")
+            Text("THE CURATED MONOLITH")
+                .font(.title2)
+                .fontWeight(.bold)
+            
+            Text("Structural precision meets archival rarity.")
+                .font(.subheadline)
+                .foregroundColor(.gray)
+            
+            Button {
+                
+            } label: {
+                HStack {
+                    Text("Explore Collection")
+                    Image(systemName: "arrow.right")
+                }
+                .padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(12)
             }
-            .padding()
-            .background(Color.blue)
-            .foregroundColor(.white)
-            .cornerRadius(12)
         }
     }
 }
