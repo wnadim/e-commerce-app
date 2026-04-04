@@ -29,6 +29,7 @@ struct ProductCardView: View {
                 
                 // Wishlist
                 Image(systemName: "heart")
+                    .foregroundColor(.gray)
                     .padding(8)
                     .background(Color.white)
                     .clipShape(Circle())
@@ -36,7 +37,8 @@ struct ProductCardView: View {
             }
             
             Text(product.title)
-                .font(.headline)
+                .font(.theme.label)
+                .foregroundColor(Color.theme.secondary)
                 .lineLimit(1)
             
             // Rating
@@ -51,16 +53,17 @@ struct ProductCardView: View {
             }
             
             Text("$\(product.price, specifier: "%.2f")")
-                .font(.subheadline)
-                .fontWeight(.semibold)
+                .font(.theme.label.weight(.bold))
+                .foregroundColor(Color.theme.secondary)
             
             // Add Button
             HStack {
                 Spacer()
                 Image(systemName: "plus")
+                    .font(.system(size: 14, weight: .bold))
                     .foregroundColor(.white)
                     .padding(10)
-                    .background(Color.pink)
+                    .background(Color.theme.primary)
                     .clipShape(Circle())
             }
         }

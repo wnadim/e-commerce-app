@@ -45,11 +45,11 @@ extension HomeView {
         VStack(alignment: .leading, spacing: 12) {
             
             Text("THE CURATED MONOLITH")
-                .font(.title2)
-                .fontWeight(.bold)
+                .font(.theme.headline)
+                .foregroundColor(Color.theme.secondary)
             
             Text("Structural precision meets archival rarity.")
-                .font(.subheadline)
+                .font(.theme.bodyText)
                 .foregroundColor(.gray)
             
             Button {
@@ -59,8 +59,9 @@ extension HomeView {
                     Text("Explore Collection")
                     Image(systemName: "arrow.right")
                 }
+                .font(.theme.label)
                 .padding()
-                .background(Color.blue)
+                .background(Color.theme.secondary)
                 .foregroundColor(.white)
                 .cornerRadius(12)
             }
