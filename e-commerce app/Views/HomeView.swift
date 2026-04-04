@@ -27,7 +27,7 @@ struct HomeView: View {
                     HStack {
                         Text("NEW ARRIVALS")
                             .font(.theme.label)
-                            .foregroundColor(.theme.secondary)
+                            .foregroundColor(.theme.textPrimary)
                         
                         Spacer()
                         
@@ -35,13 +35,13 @@ struct HomeView: View {
                             // TODO
                         }
                         .font(.theme.label)
-                        .foregroundColor(.gray)
+                        .foregroundColor(.theme.textSecondary)
                         
                         Button("SORT") {
                             // TODO
                         }
                         .font(.theme.label)
-                        .foregroundColor(.gray)
+                        .foregroundColor(.theme.textSecondary)
                     }
                     .padding(.horizontal)
                     
@@ -67,11 +67,11 @@ extension HomeView {
             
             Text("THE CURATED MONOLITH")
                 .font(.theme.headline)
-                .foregroundColor(Color.theme.secondary)
+                .foregroundColor(Color.theme.textPrimary)
             
             Text("Structural precision meets archival rarity.")
                 .font(.theme.bodyText)
-                .foregroundColor(.theme.neutral)
+                .foregroundColor(.theme.textSecondary)
             
             Button {
                 

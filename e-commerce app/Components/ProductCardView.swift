@@ -30,7 +30,7 @@ struct ProductCardView: View {
                 
                 // Wishlist
                 Image(systemName: "heart")
-                    .foregroundColor(.gray)
+                    .foregroundColor(.theme.textSecondary)
                     .padding(8)
                     .background(Color.white)
                     .clipShape(Circle())
@@ -50,7 +50,7 @@ struct ProductCardView: View {
                 
                 Text(String(format: "%.1f", product.rating))
                     .font(.caption)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.theme.textSecondary)
             }
             
             Text("$\(product.price, specifier: "%.2f")")

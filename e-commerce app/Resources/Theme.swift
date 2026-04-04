@@ -14,6 +14,12 @@ struct AppTheme {
     // Additional semantics based on the design system
     let background = Color(hex: "#080B1A")
     let surface = Color(hex: "#0D1117")
+    
+    // MARK: Semantic Text Colors
+        let textPrimary = Color(hex: "#1A237E")   // Main titles
+        let textSecondary = Color.gray            // Subtitles / metadata
+        let textOnPrimary = Color.white           // Text on CTA buttons
+        let textOnDark = Color.white              // Text on dark backgrounds
 }
 
 // Helper to use hex colors
