@@ -24,6 +24,27 @@ struct HomeView: View {
                     
                     headerSection
                     
+                    HStack {
+                        Text("NEW ARRIVALS")
+                            .font(.theme.label)
+                            .foregroundColor(.theme.secondary)
+                        
+                        Spacer()
+                        
+                        Button("FILTER") {
+                            // TODO
+                        }
+                        .font(.theme.label)
+                        .foregroundColor(.gray)
+                        
+                        Button("SORT") {
+                            // TODO
+                        }
+                        .font(.theme.label)
+                        .foregroundColor(.gray)
+                    }
+                    .padding(.horizontal)
+                    
                     LazyVGrid(columns: columns, spacing: 16) {
                         ForEach(viewModel.products) { product in
                             ProductCardView(product: product)
@@ -50,7 +71,7 @@ extension HomeView {
             
             Text("Structural precision meets archival rarity.")
                 .font(.theme.bodyText)
-                .foregroundColor(.gray)
+                .foregroundColor(.theme.neutral)
             
             Button {
                 

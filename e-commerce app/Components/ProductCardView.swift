@@ -23,7 +23,8 @@ struct ProductCardView: View {
                 } placeholder: {
                     Color.gray.opacity(0.2)
                 }
-                .frame(height: 160)
+                .frame(height: 180)
+                .scaledToFill()
                 .clipped()
                 .cornerRadius(16)
                 
@@ -39,7 +40,7 @@ struct ProductCardView: View {
             Text(product.title)
                 .font(.theme.label)
                 .foregroundColor(Color.theme.secondary)
-                .lineLimit(1)
+                .lineLimit(2)
             
             // Rating
             HStack(spacing: 4) {
@@ -67,8 +68,9 @@ struct ProductCardView: View {
                     .clipShape(Circle())
             }
         }
-        .padding()
+        .padding(12)
         .background(Color.white)
         .cornerRadius(20)
+        .shadow(color: .black.opacity(0.05), radius: 5)
     }
 }
