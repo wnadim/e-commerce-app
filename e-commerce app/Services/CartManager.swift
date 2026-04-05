@@ -11,7 +11,17 @@ import Combine
 @MainActor
 class CartManager: ObservableObject {
     
-    @Published var items: [CartItem] = []
+    @Published var items: [CartItem] = [] {
+        didSet {
+            saveCart()
+        }
+    }
+    
+    private let cartKey = "cart_items"
+    
+    init() {
+        loadCart()
+    }
     
     // Add to cart
     func add(product: Product) {
@@ -46,5 +56,25 @@ class CartManager: ObservableObject {
     // Total Items
     var totalItems: Int {
         items.reduce(0) { $0 + $1.quantity }
+    }
+    
+    private func saveCart() {
+        do {
+            let data = try JSONEncoder().encode(items)
+            UserDefaults.standard.set(data, forKey: cartKey)
+        } catch {
+            print("Error saving cart:", error)
+        }
+    }
+    
+    private func loadCart() {
+        guard let data = UserDefaults.standard.data(forKey: cartKey) else { return }
+        
+        do {
+            let decoded = try JSONDecoder().decode([CartItem].self, from: data)
+            self.items = decoded
+        } catch {
+            print("Error loading cart:", error)
+        }
     }
 }
