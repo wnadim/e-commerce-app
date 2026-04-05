@@ -88,7 +88,7 @@ struct PrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.theme.label)
-            .foregroundColor(.white)
+            .foregroundColor(.theme.textOnPrimary)
             .padding(.vertical, 12)
             .padding(.horizontal, 24)
             .background(Color.theme.primary)
@@ -102,7 +102,7 @@ struct SecondaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.theme.label)
-            .foregroundColor(.white)
+            .foregroundColor(.theme.textOnPrimary)
             .padding(.vertical, 12)
             .padding(.horizontal, 24)
             .background(Color.theme.secondary)
@@ -116,7 +116,7 @@ struct OutlinedButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.theme.label)
-            .foregroundColor(.white)
+            .foregroundColor(.theme.textOnDark)
             .padding(.vertical, 12)
             .padding(.horizontal, 24)
             .background(Color.clear)
