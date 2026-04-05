@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     
     @StateObject private var viewModel = HomeViewModel()
+    @EnvironmentObject var cartManager: CartManager
     
     let columns = [
         GridItem(.flexible()),
@@ -60,13 +61,24 @@ struct HomeView: View {
                 await viewModel.loadProducts()
             }
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: CartView()) {
+                NavigationLink(destination: CartView()) {
+                    ZStack(alignment: .topTrailing) {
+                        
                         Image(systemName: "cart")
                             .foregroundColor(.theme.secondary)
+                        
+                        if cartManager.totalItems > 0 {
+                            Text("\(cartManager.totalItems)")
+                                .font(.system(size: 10, weight: .bold))
+                                .foregroundColor(.white)
+                                .padding(6)
+                                .background(Color.theme.primary)
+                                .clipShape(Circle())
+                                .offset(x: 8, y: -8)
+                        }
                     }
                 }
-            }
+            }   
         }
     }
 }
@@ -102,4 +114,5 @@ extension HomeView {
 
 #Preview {
     HomeView()
+        .environmentObject(CartManager())
 }
