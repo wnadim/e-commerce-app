@@ -42,7 +42,7 @@ struct ProductDetailsView: View {
                     .tag(index)
                 }
             }
-            .tabViewStyle(.page(indexDisplayMode: .automatic))
+            .tabViewStyle(.page(indexDisplayMode: .never))
             .frame(height: 350)
             .ignoresSafeArea(edges: .top)
             
@@ -54,15 +54,17 @@ struct ProductDetailsView: View {
                     Spacer()
                         .frame(height: 320)
                     
-                    // MARK: Dots
-                    HStack(spacing: 6) {
-                        ForEach(product.images.indices, id: \.self) { index in
-                            Circle()
-                                .fill(index == selectedImageIndex ? Color.theme.primary : Color.gray.opacity(0.3))
-                                .frame(width: 6, height: 6)
+                    // MARK: Dots Indicator
+                    if product.images.count > 1 {
+                        HStack(spacing: 6) {
+                            ForEach(product.images.indices, id: \.self) { index in
+                                Circle()
+                                    .fill(index == selectedImageIndex ? Color.theme.primary : Color.gray.opacity(0.3))
+                                    .frame(width: 6, height: 6)
+                            }
                         }
+                        .frame(maxWidth: .infinity)
                     }
-                    .frame(maxWidth: .infinity)
                     
                     // MARK: Product Info
                     VStack(alignment: .leading, spacing: 8) {
