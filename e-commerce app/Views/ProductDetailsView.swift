@@ -42,7 +42,7 @@ struct ProductDetailsView: View {
                     .tag(index)
                 }
             }
-            .tabViewStyle(.page)
+            .tabViewStyle(.page(indexDisplayMode: .automatic))
             .frame(height: 350)
             .ignoresSafeArea(edges: .top)
             
@@ -68,7 +68,7 @@ struct ProductDetailsView: View {
                     VStack(alignment: .leading, spacing: 8) {
                         
                         Text(product.title)
-                            .font(.theme.bodyText)
+                            .font(.theme.headline)
                             .foregroundColor(.theme.textPrimary)
                         
                         HStack(spacing: 4) {
@@ -82,7 +82,8 @@ struct ProductDetailsView: View {
                         }
                         
                         Text("$\(product.price, specifier: "%.2f")")
-                            .font(.theme.headline)
+                            .font(.title2)
+                            .fontWeight(.bold)
                             .foregroundColor(.theme.secondary)
                         
                         Text(product.description)
