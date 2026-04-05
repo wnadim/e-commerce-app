@@ -56,9 +56,16 @@ struct HomeView: View {
                 }
                 .padding()
             }
-            .navigationBarHidden(true)
             .task {
                 await viewModel.loadProducts()
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: CartView()) {
+                        Image(systemName: "cart")
+                            .foregroundColor(.theme.secondary)
+                    }
+                }
             }
         }
     }

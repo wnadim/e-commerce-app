@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ProductDetailsView: View {
     
+    @EnvironmentObject var cartManager: CartManager
+    
     let product: Product
     
     @State private var selectedImageIndex = 0
@@ -97,7 +99,8 @@ struct ProductDetailsView: View {
                     
                     // MARK: Button
                     Button {
-                        print("Add to cart tapped")
+                        cartManager.add(product: product)
+                        print(cartManager.items)
                     } label: {
                         HStack {
                             Spacer()
