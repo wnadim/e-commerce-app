@@ -135,8 +135,11 @@ struct CheckoutView: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(selectedPayment == title ? Color.theme.primary : Color.gray.opacity(0.3), lineWidth: 1)
         )
+        .contentShape(Rectangle())
         .onTapGesture {
-            selectedPayment = title
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                selectedPayment = title
+            }
         }
     }
 }
