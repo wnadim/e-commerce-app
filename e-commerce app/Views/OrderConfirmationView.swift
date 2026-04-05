@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OrderConfirmationView: View {
     
-    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var appState: AppState
     
     var body: some View {
         VStack(spacing: 24) {
@@ -38,7 +38,7 @@ struct OrderConfirmationView: View {
             
             // Back to Home
             Button {
-                dismiss()
+                appState.resetToHome()
             } label: {
                 HStack {
                     Spacer()
@@ -55,4 +55,5 @@ struct OrderConfirmationView: View {
 }
 #Preview {
     OrderConfirmationView()
+        .environmentObject(AppState())
 }

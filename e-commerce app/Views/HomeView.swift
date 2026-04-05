@@ -11,6 +11,7 @@ struct HomeView: View {
     
     @StateObject private var viewModel = HomeViewModel()
     @EnvironmentObject var cartManager: CartManager
+    @EnvironmentObject var appState: AppState
     
     let columns = [
         GridItem(.flexible()),
@@ -115,4 +116,5 @@ extension HomeView {
 #Preview {
     HomeView()
         .environmentObject(CartManager())
+        .environmentObject(AppState())
 }
