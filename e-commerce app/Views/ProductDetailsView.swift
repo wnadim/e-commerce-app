@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ProductDetailsView: View {
     
+    @State private var showAddedMessage = false
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var cartManager: CartManager
     
     let product: Product
@@ -100,7 +102,16 @@ struct ProductDetailsView: View {
                     // MARK: Button
                     Button {
                         cartManager.add(product: product)
-                        print(cartManager.items)
+                        
+                        withAnimation {
+                            showAddedMessage = true
+                        }
+                            
+                            // Auto dismiss after short delay
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                                dismiss()
+                            }
+                        
                     } label: {
                         HStack {
                             Spacer()
@@ -111,6 +122,20 @@ struct ProductDetailsView: View {
                     .buttonStyle(PrimaryButtonStyle())
                     .padding(.horizontal)
                     .padding(.top)
+                }
+            }
+            if showAddedMessage {
+                VStack {
+                    Spacer()
+                    
+                    Text("Added to cart 🛒")
+                        .font(.theme.label)
+                        .padding()
+                        .background(Color.black.opacity(0.8))
+                        .foregroundColor(.white)
+                        .cornerRadius(12)
+                        .padding(.bottom, 40)
+                        .transition(.move(edge: .bottom))
                 }
             }
         }
