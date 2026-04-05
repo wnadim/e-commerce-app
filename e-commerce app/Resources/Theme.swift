@@ -12,7 +12,7 @@ struct AppTheme {
     let neutral = Color(hex: "#080B1A")
     
     // Additional semantics based on the design system
-    let background = Color(hex: "#080B1A")
+    let background = Color.white
     let surface = Color(hex: "#0D1117")
     
     // MARK: Semantic Text Colors

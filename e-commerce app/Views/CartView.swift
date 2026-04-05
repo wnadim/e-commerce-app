@@ -15,30 +15,42 @@ struct CartView: View {
         VStack {
             
             if cartManager.items.isEmpty {
+                
+                Spacer()
+                
                 Text("Your cart is empty")
                     .font(.theme.bodyText)
                     .foregroundColor(.theme.textSecondary)
+                
+                Spacer()
+                
             } else {
-                List {
-                    ForEach(cartManager.items) { item in
+                
+                ScrollView {
+                    VStack(spacing: 16) {
+                        
+                        ForEach(cartManager.items) { item in
+                            CartItemRow(item: item)
+                        }
+                        
+                        // Total
                         HStack {
-                            Text(item.product.title)
-                                .font(.theme.bodyText)
+                            Text("Total")
+                                .font(.theme.label)
                             
                             Spacer()
                             
-                            Text("x\(item.quantity)")
-                            
-                            Text("$\(item.product.price * Double(item.quantity), specifier: "%.2f")")
+                            Text("$\(cartManager.totalPrice, specifier: "%.2f")")
+                                .font(.theme.headline)
+                                .foregroundColor(.theme.secondary)
                         }
+                        .padding()
                     }
-                }
-                
-                Text("Total: $\(cartManager.totalPrice, specifier: "%.2f")")
-                    .font(.theme.headline)
                     .padding()
+                }
             }
         }
+        .background(Color.theme.background)
         .navigationTitle("Cart")
     }
 }
