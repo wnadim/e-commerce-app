@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CheckoutView: View {
     
+    @State private var selectedPayment = "Apple Pay"
     @EnvironmentObject var cartManager: CartManager
     
     var body: some View {
@@ -42,11 +43,32 @@ struct CheckoutView: View {
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Walid Nadim")
-                            Text("Cairo, Egypt")
-                            Text("+20 12 8144 5288")
+                            Text("6th of October City, Cairo, Egypt")
+                            Text("+20 10 0464 3477")
                         }
                         .font(.theme.bodyText)
                         .foregroundColor(.theme.textSecondary)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(16)
+                    .shadow(color: .black.opacity(0.05), radius: 5)
+                    
+                    // MARK: Payment Method
+                    VStack(alignment: .leading, spacing: 12) {
+                        
+                        Text("Payment Method")
+                            .font(.theme.label)
+                            .foregroundColor(.theme.textPrimary)
+                        
+                        VStack(spacing: 10) {
+                            
+                            paymentRow(title: "Apple Pay", systemImage: "applelogo")
+                            paymentRow(title: "Credit Card", systemImage: "creditcard")
+                            paymentRow(title: "Cash on Delivery", systemImage: "banknote")
+                            
+                        }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
@@ -88,6 +110,34 @@ struct CheckoutView: View {
         }
         .navigationTitle("Checkout")
         .background(Color.theme.background)
+    }
+    
+    @ViewBuilder
+    private func paymentRow(title: String, systemImage: String) -> some View {
+        
+        HStack {
+            Image(systemName: systemImage)
+            
+            Text(title)
+            
+            Spacer()
+            
+            if selectedPayment == title {
+                Image(systemName: "checkmark.circle.fill")
+                    .foregroundColor(.theme.primary)
+            } else {
+                Image(systemName: "circle")
+                    .foregroundColor(.gray)
+            }
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(selectedPayment == title ? Color.theme.primary : Color.gray.opacity(0.3), lineWidth: 1)
+        )
+        .onTapGesture {
+            selectedPayment = title
+        }
     }
 }
 
