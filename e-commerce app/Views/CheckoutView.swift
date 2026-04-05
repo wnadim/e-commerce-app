@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CheckoutView: View {
     
+    @State private var navigateToConfirmation = false
     @State private var selectedPayment = "Apple Pay"
     @EnvironmentObject var cartManager: CartManager
     
@@ -97,7 +98,9 @@ struct CheckoutView: View {
             
             // MARK: Button
             Button {
+                cartManager.items.removeAll() // 🧹 clear cart
                 
+                navigateToConfirmation = true
             } label: {
                 HStack {
                     Spacer()
@@ -110,6 +113,9 @@ struct CheckoutView: View {
         }
         .navigationTitle("Checkout")
         .background(Color.theme.background)
+        .navigationDestination(isPresented: $navigateToConfirmation) {
+            OrderConfirmationView()
+        }
     }
     
     @ViewBuilder
@@ -148,4 +154,3 @@ struct CheckoutView: View {
     CheckoutView()
         .environmentObject(CartManager())
 }
-
