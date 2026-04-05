@@ -44,6 +44,16 @@ struct CartView: View {
                                 .font(.theme.headline)
                                 .foregroundColor(.theme.secondary)
                         }
+                        
+                        NavigationLink(destination: CheckoutView()) {
+                            HStack {
+                                Spacer()
+                                Text("Proceed to Checkout")
+                                Spacer()
+                            }
+                        }
+                        .buttonStyle(PrimaryButtonStyle())
+                        
                         .padding()
                     }
                     .padding()
