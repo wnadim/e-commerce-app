@@ -74,3 +74,7 @@ struct ProductCardView: View {
         .shadow(color: .black.opacity(0.05), radius: 5)
     }
 }
+
+#Preview {
+    ProductCardView(product: Product(id: 1, title: "Test Product", price: 100, description: "Test", thumbnail: "", images: [], rating: 5))
+}

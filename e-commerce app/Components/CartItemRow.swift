@@ -115,3 +115,8 @@ struct CartItemRow: View {
         }
     }
 }
+
+#Preview {
+    CartItemRow(item: CartItem(product: Product(id: 1, title: "Test Product", price: 100, description: "Test", thumbnail: "", images: [], rating: 5), quantity: 1))
+        .environmentObject(CartManager())
+}

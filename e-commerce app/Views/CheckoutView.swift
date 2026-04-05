@@ -91,3 +91,8 @@ struct CheckoutView: View {
     }
 }
 
+#Preview {
+    CheckoutView()
+        .environmentObject(CartManager())
+}
+
