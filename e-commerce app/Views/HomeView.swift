@@ -113,6 +113,9 @@ struct HomeView: View {
                                 .background(Color.theme.primary)
                                 .clipShape(Circle())
                                 .offset(x: 8, y: -8)
+                                .scaleEffect(cartManager.totalItems > 0 ? 1 : 0.5)
+                                .animation(.spring(response: 0.3, dampingFraction: 0.6), value: cartManager.totalItems)
+                                .transition(.scale)
                         }
                     }
                 }
