@@ -7,11 +7,17 @@ A modern iOS e-commerce application built with SwiftUI, showcasing a complete sh
 
 ---
 
+## 🎬 Demo
+
+A smooth shopping experience with real-time cart updates, persistence, and modern SwiftUI animations.
+
+---
+
 ## 🚀 Features
 
 - 🏠 Home screen with product listing (API integration)
 - 🔍 Product details view with image carousel
-- 🛒 Cart management (add/remove/update items)
+- 🛒 Advanced cart management (add/remove/update with persistence)
 - 💾 Cart persistence using UserDefaults
 - 💳 Checkout flow with payment selection
 - ✅ Order confirmation screen
@@ -34,6 +40,16 @@ A modern iOS e-commerce application built with SwiftUI, showcasing a complete sh
 - URLSession (API)
 - UserDefaults (local persistence)
 - EnvironmentObject (state management)
+
+---
+
+## ⭐ Key Highlights
+
+- Clean MVVM architecture
+- Smooth animations and transitions
+- Persistent cart using UserDefaults
+- Reusable UI components
+- Modern SwiftUI navigation (NavigationStack)
 
 ---
 
