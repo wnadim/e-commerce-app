@@ -10,6 +10,7 @@ import SwiftUI
 struct ProductDetailsView: View {
     
     @State private var showAddedMessage = false
+    @State private var showAddedFeedback = false
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var cartManager: CartManager
     
@@ -101,17 +102,31 @@ struct ProductDetailsView: View {
                     
                     // MARK: Button
                     Button {
+                        
+                        // 🔊 Haptic feedback
+                        let impact = UIImpactFeedbackGenerator(style: .medium)
+                        impact.impactOccurred()
+                        
+                        // 🛒 Add to cart
                         cartManager.add(product: product)
                         
+                        // ✅ Show feedback
                         withAnimation {
                             showAddedMessage = true
                         }
-                            
-                            // Auto dismiss after short delay
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                                dismiss()
-                            }
                         
+                        // ⏳ Hide message first
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            withAnimation {
+                                showAddedMessage = false
+                            }
+                        }
+                        
+                        // ⏳ THEN dismiss smoothly
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
+                            dismiss()
+                        }
+                                                
                     } label: {
                         HStack {
                             Spacer()
