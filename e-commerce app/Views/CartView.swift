@@ -18,9 +18,25 @@ struct CartView: View {
                 
                 Spacer()
                 
-                Text("Your cart is empty")
-                    .font(.theme.bodyText)
-                    .foregroundColor(.theme.textSecondary)
+                VStack(spacing: 16) {
+                    
+                    Image(systemName: "cart")
+                        .font(.system(size: 50))
+                        .foregroundColor(.theme.textSecondary)
+                    
+                    Text("Your cart is empty")
+                        .font(.theme.bodyText)
+                        .foregroundColor(.theme.textPrimary)
+                    
+                    Text("Browse products and add them to your cart")
+                        .font(.theme.label)
+                        .foregroundColor(.theme.textSecondary)
+                    
+                    NavigationLink(destination: HomeView()) {
+                        Text("Start Shopping")
+                    }
+                    .buttonStyle(PrimaryButtonStyle())
+            }
                 
                 Spacer()
                 
