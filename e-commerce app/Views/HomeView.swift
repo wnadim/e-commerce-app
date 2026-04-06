@@ -26,45 +26,70 @@ struct HomeView: View {
                     
                     VStack(alignment: .leading, spacing: 16) {
                         
-                        headerSection
-                        
-                        HStack {
-                            Text("NEW ARRIVALS")
-                                .font(.theme.label)
-                                .foregroundColor(.theme.textPrimary)
+                        if isLoading {
                             
-                            Spacer()
+                            // 🟣 FULL SCREEN SKELETON
                             
-                            Button("FILTER") {
-                                // TODO
-                            }
-                            .font(.theme.label)
-                            .foregroundColor(.theme.textSecondary)
-                            
-                            Button("SORT") {
-                                // TODO
-                            }
-                            .font(.theme.label)
-                            .foregroundColor(.theme.textSecondary)
-                        }
-                        .padding(.horizontal)
-                        
-                        LazyVGrid(columns: columns, spacing: 16) {
-                            ForEach(viewModel.products) { product in
-                                NavigationLink(destination: ProductDetailsView(product: product)) {
-                                    ProductCardView(product: product)
+                            VStack(spacing: 16) {
+                                
+                                // Header skeleton
+                                Rectangle()
+                                    .fill(Color.gray.opacity(0.15))
+                                    .frame(height: 30)
+                                    .cornerRadius(8)
+                                
+                                Rectangle()
+                                    .fill(Color.gray.opacity(0.15))
+                                    .frame(width: 200, height: 16)
+                                    .cornerRadius(6)
+                                
+                                Rectangle()
+                                    .fill(Color.gray.opacity(0.15))
+                                    .frame(width: 180, height: 40)
+                                    .cornerRadius(12)
+                                
+                                // Grid skeleton
+                                LazyVGrid(columns: columns, spacing: 16) {
+                                    ForEach(0..<6, id: \.self) { _ in
+                                        ProductCardSkeleton()
+                                    }
                                 }
-                                .buttonStyle(.plain)
+                            }
+                            
+                        } else {
+                            
+                            // 🟢 REAL CONTENT
+                            
+                            headerSection
+                            
+                            HStack {
+                                Text("NEW ARRIVALS")
+                                    .font(.theme.label)
+                                    .foregroundColor(.theme.textPrimary)
+                                
+                                Spacer()
+                                
+                                Button("FILTER") {}
+                                    .font(.theme.label)
+                                    .foregroundColor(.theme.textSecondary)
+                                
+                                Button("SORT") {}
+                                    .font(.theme.label)
+                                    .foregroundColor(.theme.textSecondary)
+                            }
+                            .padding(.horizontal)
+                            
+                            LazyVGrid(columns: columns, spacing: 16) {
+                                ForEach(viewModel.products) { product in
+                                    NavigationLink(destination: ProductDetailsView(product: product)) {
+                                        ProductCardView(product: product)
+                                    }
+                                    .buttonStyle(.plain)
+                                }
                             }
                         }
                     }
                     .padding()
-                }
-                if isLoading {
-                    Color.black.opacity(0.1)
-                            .ignoresSafeArea()
-                    ProgressView()
-                        .scaleEffect(1.5)
                 }
             }
             
@@ -120,6 +145,28 @@ extension HomeView {
                 .background(Color.theme.secondary)
                 .foregroundColor(.white)
                 .cornerRadius(12)
+            }
+        }
+    }
+    
+    struct ProductCardSkeleton: View {
+        var body: some View {
+            VStack(alignment: .leading, spacing: 8) {
+                
+                Rectangle()
+                    .fill(Color.gray.opacity(0.15))
+                    .frame(height: 150)
+                    .cornerRadius(12)
+                
+                Rectangle()
+                    .fill(Color.gray.opacity(0.15))
+                    .frame(height: 12)
+                    .cornerRadius(6)
+                
+                Rectangle()
+                    .fill(Color.gray.opacity(0.15))
+                    .frame(width: 60, height: 12)
+                    .cornerRadius(6)
             }
         }
     }
