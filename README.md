@@ -1,3 +1,6 @@
+![SwiftUI](https://img.shields.io/badge/SwiftUI-iOS-blue)
+![Architecture](https://img.shields.io/badge/MVVM-Architecture-green)
+
 # 🛍️ SwiftUI E-Commerce App
 
 A modern iOS e-commerce application built with SwiftUI, showcasing a complete shopping experience from browsing products to checkout.
@@ -36,7 +39,17 @@ A modern iOS e-commerce application built with SwiftUI, showcasing a complete sh
 
 ## 📸 Screenshots
 
-> Add your app screenshots here (Home, Product, Cart, Checkout)
+### 🏠 Home
+![Home](screenshots/home.png)
+
+### 📦 Product
+![Product](screenshots/product.png)
+
+### 🛒 Cart
+![Cart](screenshots/cart.png)
+
+### 💳 Checkout
+![Checkout](screenshots/checkout.png)
 
 ---
 
