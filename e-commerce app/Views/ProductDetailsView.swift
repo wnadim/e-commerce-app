@@ -11,6 +11,7 @@ struct ProductDetailsView: View {
     
     @State private var showAddedMessage = false
     @State private var showAddedFeedback = false
+    @State private var isProcessing = false
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var cartManager: CartManager
     
@@ -103,6 +104,9 @@ struct ProductDetailsView: View {
                     // MARK: Button
                     Button {
                         
+                        guard !isProcessing else { return }
+                            isProcessing = true
+                        
                         // 🔊 Haptic feedback
                         let impact = UIImpactFeedbackGenerator(style: .medium)
                         impact.impactOccurred()
@@ -134,6 +138,8 @@ struct ProductDetailsView: View {
                             Spacer()
                         }
                     }
+                    .disabled(isProcessing)
+                    .opacity(isProcessing ? 0.6 : 1)
                     .buttonStyle(PrimaryButtonStyle())
                     .padding(.horizontal)
                     .padding(.top)

@@ -10,6 +10,7 @@ import SwiftUI
 struct CartItemRow: View {
     
     @State private var offsetX: CGFloat = 0
+    @State private var isUpdating = false
     
     @EnvironmentObject var cartManager: CartManager
     let item: CartItem
@@ -20,6 +21,7 @@ struct CartItemRow: View {
             
             // 🔴 Delete background (revealed on swipe)
             Button {
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 cartManager.remove(product: item.product)
             } label: {
                 Image(systemName: "trash")
@@ -63,29 +65,50 @@ struct CartItemRow: View {
                 HStack(spacing: 8) {
                     
                     Button {
-                        cartManager.updateQuantity(
-                            product: item.product,
-                            quantity: item.quantity - 1
-                        )
+                        guard !isUpdating else { return }
+                            isUpdating = true
+                        
+                        withAnimation {
+                            cartManager.updateQuantity(
+                                product: item.product,
+                                quantity: item.quantity - 1
+                            )
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            isUpdating = false
+                        }
                     } label: {
                         Image(systemName: "minus")
                     }
+                    .disabled(isUpdating)
+                    .opacity(isUpdating ? 0.5 : 1)
                     
                     Text("\(item.quantity)")
                         .font(.theme.label)
                     
                     Button {
-                        cartManager.updateQuantity(
-                            product: item.product,
-                            quantity: item.quantity + 1
-                        )
+                        guard !isUpdating else { return }
+                            isUpdating = true
+                        
+                        withAnimation {
+                            cartManager.updateQuantity(
+                                product: item.product,
+                                quantity: item.quantity + 1
+                            )
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                isUpdating = false
+                            }
                     } label: {
                         Image(systemName: "plus")
                     }
+                    .disabled(isUpdating)
+                    .opacity(isUpdating ? 0.5 : 1)
                 }
                 
                 // Delete icon (quick action)
                 Button {
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                     cartManager.remove(product: item.product)
                 } label: {
                     Image(systemName: "trash")
@@ -105,10 +128,12 @@ struct CartItemRow: View {
                         }
                     }
                     .onEnded { value in
-                        if value.translation.width < -80 {
-                            offsetX = -80
-                        } else {
-                            offsetX = 0
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                            if value.translation.width < -80 {
+                                offsetX = -80
+                            } else {
+                                offsetX = 0
+                            }
                         }
                     }
             )

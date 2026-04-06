@@ -24,7 +24,6 @@ struct ProductCardView: View {
                     Color.gray.opacity(0.2)
                 }
                 .frame(height: 180)
-                .scaledToFill()
                 .clipped()
                 .cornerRadius(16)
                 
@@ -57,15 +56,19 @@ struct ProductCardView: View {
                 .font(.theme.label.weight(.bold))
                 .foregroundColor(Color.theme.secondary)
             
-            // Add Button
-            HStack {
-                Spacer()
-                Image(systemName: "plus")
-                    .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(.white)
-                    .padding(10)
-                    .background(Color.theme.primary)
-                    .clipShape(Circle())
+            Button {
+                // future: quick add to cart
+            } label: {
+                HStack {
+                    Spacer()
+                    Image(systemName: "plus")
+                        .font(.system(size: 14, weight: .bold))
+                        .foregroundColor(.white)
+                        .padding(10)
+                        .background(Color.theme.primary)
+                        .clipShape(Circle())
+                        .scaleEffect(0.98)
+                }
             }
         }
         .padding(12)

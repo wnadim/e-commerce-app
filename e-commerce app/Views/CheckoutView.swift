@@ -11,28 +11,35 @@ struct CheckoutView: View {
     
     @State private var navigateToConfirmation = false
     @State private var selectedPayment = "Apple Pay"
+    @State private var isPlacingOrder = false
     @EnvironmentObject var cartManager: CartManager
     
     var body: some View {
         VStack(spacing: 16) {
             
             ScrollView {
-                VStack(spacing: 16) {
+                VStack(spacing: 20) {
                     
                     // MARK: Items
                     ForEach(cartManager.items) { item in
-                        HStack {
-                            Text(item.product.title)
-                                .font(.theme.bodyText)
-                                .lineLimit(1)
+                        VStack(spacing: 8) {
                             
-                            Spacer()
+                            HStack {
+                                Text(item.product.title)
+                                    .font(.theme.bodyText)
+                                    .lineLimit(1)
+                                
+                                Spacer()
+                                
+                                Text("x\(item.quantity)")
+                                
+                                Text("$\(item.product.price * Double(item.quantity), specifier: "%.2f")")
+                            }
+                            .font(.theme.label)
                             
-                            Text("x\(item.quantity)")
-                            
-                            Text("$\(item.product.price * Double(item.quantity), specifier: "%.2f")")
+                            Divider()
+                                .opacity(0.3)
                         }
-                        .font(.theme.label)
                     }
                     
                     // MARK: Shipping Address
@@ -93,22 +100,43 @@ struct CheckoutView: View {
                 Text("$\(cartManager.totalPrice, specifier: "%.2f")")
                     .font(.theme.headline)
                     .foregroundColor(.theme.secondary)
+                    .animation(.easeInOut, value: cartManager.totalPrice)
             }
             .padding(.horizontal)
             
             // MARK: Button
             Button {
-                cartManager.items.removeAll() // 🧹 clear cart
+                guard !isPlacingOrder else { return }
+                isPlacingOrder = true
                 
-                navigateToConfirmation = true
+                // 🔊 Haptic feedback
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                
+                // simulate API call
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    cartManager.items.removeAll() // 🧹 clear cart
+                    
+                    isPlacingOrder = false
+                    navigateToConfirmation = true
+                }
             } label: {
                 HStack {
                     Spacer()
-                    Text("Place Order")
+//                    Text("Place Order")
+                    HStack {
+                        if isPlacingOrder {
+                            ProgressView()
+                                .tint(.white)
+                        }
+                        
+                        Text(isPlacingOrder ? "Processing..." : "Place Order")
+                    }
                     Spacer()
                 }
             }
             .buttonStyle(PrimaryButtonStyle())
+            .disabled(isPlacingOrder)
+            .opacity(isPlacingOrder ? 0.6 : 1)
             .padding()
         }
         .navigationTitle("Checkout")
