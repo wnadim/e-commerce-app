@@ -40,16 +40,16 @@ A modern iOS e-commerce application built with SwiftUI, showcasing a complete sh
 ## 📸 Screenshots
 
 ### 🏠 Home
-![Home](screenshots/home.png)
+![Home](screenShots/home.png)
 
 ### 📦 Product
-![Product](screenshots/product.png)
+![Product](screenShots/product.png)
 
 ### 🛒 Cart
-![Cart](screenshots/cart.png)
+![Cart](screenShots/cart.png)
 
 ### 💳 Checkout
-![Checkout](screenshots/checkout.png)
+![Checkout](screenShots/checkout.png)
 
 ---
 
