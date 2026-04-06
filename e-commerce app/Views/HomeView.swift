@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     
     @StateObject private var viewModel = HomeViewModel()
+    @State private var isLoading = false
     @EnvironmentObject var cartManager: CartManager
     @EnvironmentObject var appState: AppState
     
@@ -20,46 +21,57 @@ struct HomeView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                
-                VStack(alignment: .leading, spacing: 16) {
+            ZStack {
+                ScrollView {
                     
-                    headerSection
-                    
-                    HStack {
-                        Text("NEW ARRIVALS")
-                            .font(.theme.label)
-                            .foregroundColor(.theme.textPrimary)
+                    VStack(alignment: .leading, spacing: 16) {
                         
-                        Spacer()
+                        headerSection
                         
-                        Button("FILTER") {
-                            // TODO
-                        }
-                        .font(.theme.label)
-                        .foregroundColor(.theme.textSecondary)
-                        
-                        Button("SORT") {
-                            // TODO
-                        }
-                        .font(.theme.label)
-                        .foregroundColor(.theme.textSecondary)
-                    }
-                    .padding(.horizontal)
-                    
-                    LazyVGrid(columns: columns, spacing: 16) {
-                        ForEach(viewModel.products) { product in
-                            NavigationLink(destination: ProductDetailsView(product: product)) {
-                                ProductCardView(product: product)
+                        HStack {
+                            Text("NEW ARRIVALS")
+                                .font(.theme.label)
+                                .foregroundColor(.theme.textPrimary)
+                            
+                            Spacer()
+                            
+                            Button("FILTER") {
+                                // TODO
                             }
-                            .buttonStyle(.plain)
+                            .font(.theme.label)
+                            .foregroundColor(.theme.textSecondary)
+                            
+                            Button("SORT") {
+                                // TODO
+                            }
+                            .font(.theme.label)
+                            .foregroundColor(.theme.textSecondary)
+                        }
+                        .padding(.horizontal)
+                        
+                        LazyVGrid(columns: columns, spacing: 16) {
+                            ForEach(viewModel.products) { product in
+                                NavigationLink(destination: ProductDetailsView(product: product)) {
+                                    ProductCardView(product: product)
+                                }
+                                .buttonStyle(.plain)
+                            }
                         }
                     }
+                    .padding()
                 }
-                .padding()
+                if isLoading {
+                    Color.black.opacity(0.1)
+                            .ignoresSafeArea()
+                    ProgressView()
+                        .scaleEffect(1.5)
+                }
             }
+            
             .task {
+                isLoading = true
                 await viewModel.loadProducts()
+                isLoading = false
             }
             .toolbar {
                 NavigationLink(destination: CartView()) {
@@ -79,7 +91,7 @@ struct HomeView: View {
                         }
                     }
                 }
-            }   
+            }
         }
     }
 }
